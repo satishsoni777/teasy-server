@@ -67,7 +67,7 @@ app.get('call_history',getCallHistory);
 app.get('/user_profil',getUserPorfile);
 
 
-http.createServer(app).listen(app.get('port'), function() {
+http.createServer(app).listen(app.get('port'),'0.0.0.0', function() {
     console.log('AgoraSignServer starts at ' + app.get('port'));
 });
 
