@@ -6,7 +6,7 @@ var fileS = require('fs');
 const mega = require('megajs')
 var { RtcTokenBuilder, RtmTokenBuilder, RtcRole, RtmRole } = require('agora-access-token')
 
-var PORT = 8080;
+var PORT = process.env.PORT|| 8080;
 //
 
 // Fill the appID and appCertificate key given by Agora.io

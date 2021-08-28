@@ -5,6 +5,7 @@
   "homepage": "https://github.com/AgoraIO/Tools/tree/master/DynamicKey/AgoraDynamicKey/nodejs",
   "main": "server/DemoServer.js",
   "scripts": {
+    "start": "node server/DemoServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "types": "index.d.ts",
