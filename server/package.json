@@ -7,8 +7,12 @@
   },
   "dependencies": {
     "agora-access-token": "^2.0.4",
-    "express": "3.4.8"
+    "express": "3.4.8",
+    "megajs": "^0.17.2"
   },
   "main": "DemoServer.js",
-  "author": "agora"
+  "author": "agora",
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
 }

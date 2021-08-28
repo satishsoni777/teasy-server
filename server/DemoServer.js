@@ -2,7 +2,9 @@
 //var https = require('https');
 var http = require('http');
 var express = require('express');
-var {RtcTokenBuilder, RtmTokenBuilder, RtcRole, RtmRole} = require('agora-access-token')
+var fileS = require('fs');
+const mega = require('megajs')
+var { RtcTokenBuilder, RtmTokenBuilder, RtcRole, RtmRole } = require('agora-access-token')
 
 var PORT = 8080;
 //
@@ -21,7 +23,7 @@ app.set('port', PORT);
 app.use(express.favicon());
 app.use(app.router);
 
-var generateRtcToken = function(req, resp) {
+var generateRtcToken = function (req, resp) {
     var currentTimestamp = Math.floor(Date.now() / 1000)
     var privilegeExpiredTs = currentTimestamp + expirationTimeInSeconds
     var channelName = req.query.channelName;
@@ -35,11 +37,11 @@ var generateRtcToken = function(req, resp) {
     var key = RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpiredTs);
 
     resp.header("Access-Control-Allow-Origin", "*")
-        //resp.header("Access-Control-Allow-Origin", "http://ip:port")
+    //resp.header("Access-Control-Allow-Origin", "http://ip:port")
     return resp.json({ 'key': key }).send();
 };
 
-var generateRtmToken = function(req, resp) {
+var generateRtmToken = function (req, resp) {
     var currentTimestamp = Math.floor(Date.now() / 1000)
     var privilegeExpiredTs = currentTimestamp + expirationTimeInSeconds
     var account = req.query.account;
@@ -50,24 +52,31 @@ var generateRtmToken = function(req, resp) {
     var key = RtmTokenBuilder.buildToken(appID, appCertificate, account, RtmRole, privilegeExpiredTs);
 
     resp.header("Access-Control-Allow-Origin", "*")
-        //resp.header("Access-Control-Allow-Origin", "http://ip:port")
+    //resp.header("Access-Control-Allow-Origin", "http://ip:port")
     return resp.json({ 'key': key }).send();
 };
 
-var getCallHistory=function(req,res){
-    
-}
-var getUserPorfile=function(req,res){
+var getCallHistory = function (req, res) {
 
+}
+var getUserPorfile = function (req, res) {
+
+}
+var getSite = function (req, res) {
+    fs.createReadStream('myfile.txt').pipe(storage.upload('myfile.txt'))
+
+    storage.upload({ name: 'myfile.txt' }, buffer, function (err, file) {
+
+    })
 }
 
 app.get('/rtcToken', generateRtcToken);
 app.get('/rtmToken', generateRtmToken);
-app.get('call_history',getCallHistory);
-app.get('/user_profil',getUserPorfile);
+app.get('call_history', getCallHistory);
+app.get('/user_profil', getUserPorfile);
 
 
-http.createServer(app).listen(app.get('port'),'0.0.0.0', function() {
+http.createServer(app).listen(app.get('port'), function () {
     console.log('AgoraSignServer starts at ' + app.get('port'));
 });
 
